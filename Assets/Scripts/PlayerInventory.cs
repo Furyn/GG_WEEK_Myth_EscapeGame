@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    private GameObject currentlyEquipped;
+    public GameObject currentlyEquipped;
     Ray ray;
     private Transform highlighted;
+
+    public Material normalMaterial;
+    public Material highlightedMaterial;
+
+    //Update with new selectableObjectTags
     public string[] selectableTags;
 
     // Start is called before the first frame update
@@ -20,7 +25,7 @@ public class PlayerInventory : MonoBehaviour
     {
         if(highlighted != null)
         {
-            highlighted.GetComponent<MeshRenderer>().material.color = Color.white;
+            highlighted.GetComponent<MeshRenderer>().material = normalMaterial;
             highlighted = null;
         }
 
@@ -35,11 +40,11 @@ public class PlayerInventory : MonoBehaviour
             {
                 if(hit.transform.CompareTag(selectableTags[i]))
                 {
-                    hit.transform.GetComponent<MeshRenderer>().material.color = Color.red;
+                    normalMaterial = hit.transform.GetComponent<MeshRenderer>().material;
+                    hit.transform.GetComponent<MeshRenderer>().material = highlightedMaterial;
+                    highlighted = hit.transform;
                 }
             }
-
-            highlighted = hit.transform;
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -64,16 +69,35 @@ public class PlayerInventory : MonoBehaviour
             }
         }
 
-        if(highlighted == null)
+        else
         {
-
+            if(Input.GetMouseButtonDown(0))
+            {
+                if(currentlyEquipped != null)
+                {
+                    Drop();
+                }
+            }
         }
     }
 
     void PickUp(GameObject objToPickUp)
     {
-        currentlyEquipped = objToPickUp;
-        objToPickUp.SetActive(false);
+        if(currentlyEquipped != null)
+        {
+            currentlyEquipped.SetActive(true);
+            currentlyEquipped = null;
+            Debug.Log("Got back the object");
+        }
+
+            currentlyEquipped = objToPickUp;
+            objToPickUp.SetActive(false);
+    }
+
+    void Drop()
+    {
+        currentlyEquipped.gameObject.SetActive(true);
+        currentlyEquipped = null;
     }
 
 }
