@@ -33,10 +33,10 @@ public class PlayerInventory : MonoBehaviour
 
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        Debug.DrawRay(ray.origin, ray.direction * 50, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * 2, Color.red);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 50))
+        if (Physics.Raycast(ray, out hit, 2))
         {
             for(int i = 0; i < selectableTags.Length; i++)
             {
