@@ -44,7 +44,6 @@ public class MovePlayer : MonoBehaviour
         RaycastHit _hit;
         if (Physics.Raycast(transform.position, Vector3.down, out _hit, widthCanJump))
         {
-            Debug.DrawLine(transform.position, _hit.point, Color.red);
             canJump = true;
         }
         else
