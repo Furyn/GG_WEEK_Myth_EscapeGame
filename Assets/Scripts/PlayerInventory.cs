@@ -5,11 +5,13 @@ using UnityEngine;
 public class PlayerInventory : MonoBehaviour
 {
     public GameObject currentlyEquipped;
+    public bool grabbedAnObject;
     Ray ray;
     private Transform highlighted;
 
     public Material normalMaterial;
     public Material highlightedMaterial;
+    public Transform playerHand;
 
     //Update with new selectableObjectTags
     public string[] selectableTags;
@@ -44,6 +46,17 @@ public class PlayerInventory : MonoBehaviour
                     hit.transform.GetComponent<MeshRenderer>().material = highlightedMaterial;
                     highlighted = hit.transform;
                 }
+
+                else
+                {
+                    if (Input.GetMouseButtonDown(1))
+                    {
+                        if (currentlyEquipped != null)
+                        {
+                            Drop();
+                        }
+                    }
+                }
             }
 
             if (Input.GetMouseButtonDown(0))
@@ -71,7 +84,7 @@ public class PlayerInventory : MonoBehaviour
 
         else
         {
-            if(Input.GetMouseButtonDown(0))
+            if(Input.GetMouseButtonDown(1))
             {
                 if(currentlyEquipped != null)
                 {
@@ -81,23 +94,37 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (currentlyEquipped != null)
+        {
+            currentlyEquipped.transform.position = playerHand.position;
+            currentlyEquipped.transform.rotation = playerHand.rotation;
+            currentlyEquipped.transform.SetParent(this.transform);
+        }
+    }
+
     void PickUp(GameObject objToPickUp)
     {
         if(currentlyEquipped != null)
         {
-            currentlyEquipped.SetActive(true);
-            currentlyEquipped = null;
+            Drop();
             Debug.Log("Got back the object");
         }
 
+            objToPickUp.transform.position = playerHand.position;
             currentlyEquipped = objToPickUp;
-            objToPickUp.SetActive(false);
+            currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
+            grabbedAnObject = true;
+            
     }
 
     void Drop()
     {
-        currentlyEquipped.gameObject.SetActive(true);
+        currentlyEquipped.transform.SetParent(null);
+        currentlyEquipped.GetComponent<Rigidbody>().isKinematic = false;
         currentlyEquipped = null;
+        grabbedAnObject = false;
     }
 
 }
