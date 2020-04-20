@@ -9,10 +9,10 @@ public class RotationPlayer : MonoBehaviour
 
     private float xRotation = 0f;
 
-    public float amplitudeWobbling = 0.3f;
-    public float amplitudeWobblingCrouch = 0.15f;
-    public float speedWobbling = 0.025f;
-    public float speedWobblingCrouch = 0.0125f;
+    public float amplitudeWobbling = 3f;
+    public float amplitudeWobblingCrouch = 1.5f;
+    public float speedWobbling = 2.5f;
+    public float speedWobblingCrouch = 1.25f;
 
     public bool isCrouch = false; 
 
@@ -37,10 +37,12 @@ public class RotationPlayer : MonoBehaviour
             _speed = speedWobblingCrouch;
         }
 
+        _amplitude /= 100;
+
         if (_isIncreasing)
-            _numberIncrease += _speed / 100;
+            _numberIncrease += _speed / 10000;
         else
-            _numberIncrease -= _speed / 100;
+            _numberIncrease -= _speed / 10000;
 
         if (_numberIncrease >= _amplitude)
             _isIncreasing = false;

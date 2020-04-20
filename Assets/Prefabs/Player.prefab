@@ -580,8 +580,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   playerBody: {fileID: 3772689593256066019}
-  amplitudeWobbling: 0.03
-  amplitudeWobblingCrouch: 0.015
-  speedWobbling: 0.025
-  speedWobblingCrouch: 0.0125
+  amplitudeWobbling: 3
+  amplitudeWobblingCrouch: 1.5
+  speedWobbling: 2.5
+  speedWobblingCrouch: 1.25
   isCrouch: 0
