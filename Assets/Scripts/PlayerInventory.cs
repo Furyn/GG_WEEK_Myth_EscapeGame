@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public GameObject currentlyEquipped;
-    public bool grabbedAnObject;
-    Ray ray;
+    private GameObject currentlyEquipped;
+    private Ray ray;
     private Transform highlighted;
+    private Material normalMaterial;
 
-    public Material normalMaterial;
     public Material highlightedMaterial;
     public Transform playerHand;
 
-    //Update with new selectableObjectTags
+    [Header("Update with selectableObjects' Tags")]
     public string[] selectableTags;
 
     // Start is called before the first frame update
@@ -115,7 +114,6 @@ public class PlayerInventory : MonoBehaviour
             objToPickUp.transform.position = playerHand.position;
             currentlyEquipped = objToPickUp;
             currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
-            grabbedAnObject = true;
             
     }
 
@@ -124,7 +122,6 @@ public class PlayerInventory : MonoBehaviour
         currentlyEquipped.transform.SetParent(null);
         currentlyEquipped.GetComponent<Rigidbody>().isKinematic = false;
         currentlyEquipped = null;
-        grabbedAnObject = false;
     }
 
 }
