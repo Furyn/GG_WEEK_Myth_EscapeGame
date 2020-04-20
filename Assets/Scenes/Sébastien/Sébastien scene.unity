@@ -165,7 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a12a5c68f1427489b2c114dcb5fd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentlyEquipped: {fileID: 0}
+  selectableTags:
+  - Key
+  - Lock
 --- !u!54 &441671920
 Rigidbody:
   m_ObjectHideFlags: 0

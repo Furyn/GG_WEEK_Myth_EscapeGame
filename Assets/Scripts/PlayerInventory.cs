@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public GameObject currentlyEquipped;
+    private GameObject currentlyEquipped;
     Ray ray;
-
-    public Transform highlighted;
+    private Transform highlighted;
+    public string[] selectableTags;
 
     // Start is called before the first frame update
     void Start()
@@ -31,7 +31,13 @@ public class PlayerInventory : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 50))
         {
-            hit.transform.GetComponent<MeshRenderer>().material.color = Color.red;
+            for(int i = 0; i < selectableTags.Length; i++)
+            {
+                if(hit.transform.CompareTag(selectableTags[i]))
+                {
+                    hit.transform.GetComponent<MeshRenderer>().material.color = Color.red;
+                }
+            }
 
             highlighted = hit.transform;
 
