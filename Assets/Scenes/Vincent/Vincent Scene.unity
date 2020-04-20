@@ -640,6 +640,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  jumpPower: 1
+  widthJump: 1
+  widthCanJump: 0
 --- !u!54 &2006481010
 Rigidbody:
   m_ObjectHideFlags: 0
