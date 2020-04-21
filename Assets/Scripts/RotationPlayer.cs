@@ -46,9 +46,18 @@ public class RotationPlayer : MonoBehaviour
         _amplitude /= 100;
 
         if (_isIncreasing)
-            _numberIncrease += _speed / 10000;
+            _numberIncrease += _speed / 1;
         else
             _numberIncrease -= _speed / 10000;
+
+        if (_numberIncrease > _amplitude)
+        {
+            _numberIncrease = _amplitude;
+        }
+        else if (_numberIncrease < -_amplitude)
+        {
+            _numberIncrease = -_amplitude;
+        }
 
         if (_numberIncrease >= _amplitude)
             _isIncreasing = false;
