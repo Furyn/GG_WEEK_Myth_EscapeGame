@@ -20,6 +20,9 @@ public class MovePlayer : MonoBehaviour
     private bool canJump = true;
     private float _timerJump;
 
+    [HideInInspector]
+    public bool isCrouch = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +39,13 @@ public class MovePlayer : MonoBehaviour
         Vector3 _movHorizontal = transform.right * _xMov;
         Vector3 _movVertical = transform.forward * _zMov;
 
-        Vector3 _velocity = (_movHorizontal + _movVertical) * speed;
+        float _speed = speed;
+        if (isCrouch)
+        {
+            _speed /= 2;
+        }
+
+        Vector3 _velocity = (_movHorizontal + _movVertical) * _speed;
 
         if (_velocity != Vector3.zero)
         {
@@ -60,7 +69,7 @@ public class MovePlayer : MonoBehaviour
 
         _timerJump -= Time.deltaTime;
 
-        if ( _timerJump >= 0.0f)
+        if ( _timerJump >= 0.0f && !isCrouch)
         {
             rb.drag = 0;
             rb.AddForce(Vector3.up * jumpPower * 1000 * Time.deltaTime, ForceMode.Acceleration);

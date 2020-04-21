@@ -12,14 +12,22 @@ public class RotationPlayer : MonoBehaviour
     public float speedWobbling = 2.5f;
     public float speedWobblingCrouch = 1.25f;
 
-    public bool isCrouch = false; 
+    [HideInInspector]
+    public bool isCrouch = false;
 
     private float _numberIncrease;
     private bool _isIncreasing;
 
+    [SerializeField]
+    private Camera playerCam;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (playerCam == null)
+        {
+            Debug.LogError("CAMERA NON REFERENCER");
+        }
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -54,7 +62,7 @@ public class RotationPlayer : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
         Cursor.visible = false;
     }
