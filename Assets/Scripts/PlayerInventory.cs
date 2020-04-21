@@ -56,8 +56,10 @@ public class PlayerInventory : MonoBehaviour
                     {
                         if (currentlyEquipped != null)
                         {
-                            hit.transform.GetComponent<Lock>().OpenLock(currentlyEquipped.transform.gameObject);
-                            currentlyEquipped = null;
+                            if(hit.transform.GetComponent<Lock>().OpenLock(currentlyEquipped.transform.gameObject))
+                            {
+                                Drop();
+                            }
                         }
 
                         else
@@ -85,18 +87,6 @@ public class PlayerInventory : MonoBehaviour
 
             }
             
-                //else
-                //{
-                //    if (Input.GetMouseButtonDown(1))
-                //    {
-                //        if (currentlyEquipped != null)
-                //        {
-                //            Drop();
-                //        }
-                //    }
-                //}
-
-            
         }
 
         else
@@ -113,7 +103,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 if (inventory.Count > 1)
                 {
-                    CycleInvPos();
+                    SwitchInv();
                 }
             }
         }
@@ -141,12 +131,6 @@ public class PlayerInventory : MonoBehaviour
 
     void PickUp(GameObject objToPickUp)
     {
-            if(IsInvEmpty(inventory.Count))
-            {
-                inventory.Add(new InventoryItem(objToPickUp, inventoryTransforms[0]));
-            }
-
-            else
             {
                  inventory.Add(new InventoryItem(objToPickUp, inventoryTransforms[inventory.Count]));
             }
@@ -164,9 +148,9 @@ public class PlayerInventory : MonoBehaviour
         inventory.Remove(inventory[0]);
         currentlyEquipped = null;
 
-        if (inventory.Count > 1)
+        if (inventory.Count > 0)
         {
-            CycleInvPos();
+            RearrangeInvPos();
         }
 
     }
@@ -192,35 +176,38 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
-    bool IsInvEmpty(int inventoryCount)
+    //bool IsInvEmpty(int inventoryCount)
+    //{
+    //    if(inventoryCount <= 0)
+    //    {
+    //        Debug.Log("Inventory's empty. Addind item...");
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
+
+    void RearrangeInvPos()
     {
-        if(inventoryCount <= 0)
+        for (int i = 0; i < inventory.Count; i++)
         {
-            Debug.Log("Inventory's empty. Addind item...");
-            return true;
-        }
-        else
-        {
-            return false;
+            Debug.Log("Cycling...");
+
+            inventory[i].slotTransform = inventoryTransforms[i];
         }
     }
 
-    void CycleInvPos()
+    void SwitchInv()
     {
-        Debug.Log("Cycling through  : " + inventory.Count + " objets d'inventaire");
+        GameObject tempGO = inventory[0].itemGO;
 
-        Transform tempTransform = inventoryTransforms[0];
-        for (int i = inventory.Count; i < inventory.Count; i++)
-        {
-            if(i > inventory.Count - 2)
+            for(int i = 0; i < inventory.Count - 1; i++)
             {
-                Debug.Log("Ouais ouais");
-                inventory[i].slotTransform = tempTransform;
+                inventory[i].itemGO = inventory[i + 1].itemGO;
             }
-            else
-            {
-                inventory[i].slotTransform = inventoryTransforms[i + 1];
-            }
-        }
+
+            inventory[inventory.Count - 1].itemGO = tempGO;
     }
 }

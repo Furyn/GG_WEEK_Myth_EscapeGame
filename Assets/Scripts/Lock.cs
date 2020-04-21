@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Lock : MonoBehaviour
 {
-    public bool isUnlocked;
 
-    public void OpenLock(GameObject currentItem)
+    public bool OpenLock(GameObject currentItem)
     {
         if(currentItem.CompareTag("Key"))
         {
             Debug.Log("Opened the lock");
-            isUnlocked = !isUnlocked;
             currentItem.SetActive(false);
             this.gameObject.SetActive(false);
+            return true;
         }
         else
         {
             Debug.Log("I need a key to open this...");
+            return false;
         }
     }
 }
