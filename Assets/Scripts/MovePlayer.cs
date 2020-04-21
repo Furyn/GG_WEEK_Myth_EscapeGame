@@ -13,6 +13,8 @@ public class MovePlayer : MonoBehaviour
     private float widthJump = 1f;
     [SerializeField]
     private float widthCanJump = 2.0f;
+    [SerializeField]
+    private float smoothDescentJump = 5.0f;
 
     private Rigidbody rb;
     private bool canJump = true;
@@ -60,7 +62,12 @@ public class MovePlayer : MonoBehaviour
 
         if ( _timerJump >= 0.0f)
         {
+            rb.drag = 0;
             rb.AddForce(Vector3.up * jumpPower * 1000 * Time.deltaTime, ForceMode.Acceleration);
+        }
+        else
+        {
+            rb.drag = smoothDescentJump;
         }
 
     }
