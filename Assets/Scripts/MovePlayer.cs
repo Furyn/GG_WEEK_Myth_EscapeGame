@@ -18,6 +18,7 @@ public class MovePlayer : MonoBehaviour
 
     private Rigidbody rb;
     private bool canJump = true;
+    private bool onJump = false;
     private float _timerJump;
 
     [HideInInspector]
@@ -64,12 +65,16 @@ public class MovePlayer : MonoBehaviour
 
         if (Input.GetButton("Jump") && canJump)
         {
+            onJump = true;
             _timerJump = widthJump;
+        }else if (!Input.GetButton("Jump"))
+        {
+            onJump = false;
         }
 
         _timerJump -= Time.deltaTime;
 
-        if ( _timerJump >= 0.0f && !isCrouch)
+        if ( _timerJump >= 0.0f && !isCrouch && onJump)
         {
             rb.drag = 0;
             rb.AddForce(Vector3.up * jumpPower * 1000 * Time.deltaTime, ForceMode.Acceleration);
