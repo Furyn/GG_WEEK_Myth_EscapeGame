@@ -10,16 +10,18 @@ public class MovePlayer : MonoBehaviour
     [SerializeField]
     private float jumpPower = 5f;
     [SerializeField]
-    private float widthJump = 1f;
+    private float maxTimeJump = 1f;
     [SerializeField]
-    private float widthCanJump = 2.0f;
+    private float maxWithJump = 10.0f;
     [SerializeField]
-    private float smoothDescentJump = 5.0f;
+    private float smoothDescentJump = 2.0f;
 
     private Rigidbody rb;
     private bool canJump = true;
     private bool onJump = false;
     private float _timerJump;
+    private float widthCanJump = 1.2f;
+    private float widthInitJump;
 
     [HideInInspector]
     public bool isCrouch = false;
@@ -28,13 +30,13 @@ public class MovePlayer : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        _timerJump = -1f;
+        _timerJump = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(widthInitJump + " / " + transform.position.y + "JUMP : " + onJump);
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (!GameManager.Instance.isPaused)
@@ -78,19 +80,44 @@ public class MovePlayer : MonoBehaviour
                 canJump = false;
             }
 
-            if (Input.GetButton("Jump") && canJump)
+            if (Input.GetKey(KeyCode.Space) && canJump)
             {
-                onJump = true;
-                _timerJump = widthJump;
+                if (_timerJump < maxTimeJump)
+                {
+                    _timerJump += Time.deltaTime;
+                }
+                else if (canJump)
+                {
+                    widthInitJump = transform.position.y;
+                    onJump = true;
+                }
             }
-            else if (!Input.GetButton("Jump"))
+            else if (Input.GetKeyUp(KeyCode.Space) && canJump)
+            {
+                widthInitJump = transform.position.y;
+                onJump = true;
+            }
+            else if (_timerJump <= 0.0f)
             {
                 onJump = false;
             }
 
-            _timerJump -= Time.deltaTime;
+            if (widthInitJump + maxWithJump < transform.position.y && onJump)
+            {
+                onJump = false;
+            }
 
-            if (_timerJump >= 0.0f && !isCrouch && onJump)
+            if (onJump)
+            {
+                _timerJump -= Time.deltaTime;
+            }
+
+            if (rb.velocity.y > jumpPower && onJump)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, jumpPower, rb.velocity.z);
+            }
+
+            if (_timerJump > 0.0f && !isCrouch && onJump)
             {
                 rb.drag = 0;
                 rb.AddForce(Vector3.up * jumpPower * 1000 * Time.deltaTime, ForceMode.Acceleration);
