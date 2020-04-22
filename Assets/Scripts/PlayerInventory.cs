@@ -12,7 +12,7 @@ public class PlayerInventory : MonoBehaviour
     [HideInInspector]
     public List<InventoryItem> inventory;
 
-    [HideInInspector]
+
     public Transform[] inventoryTransforms;
 
     [Space]
