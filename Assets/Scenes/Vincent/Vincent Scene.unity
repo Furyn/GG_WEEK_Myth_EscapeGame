@@ -343,6 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 991143496}
+  - component: {fileID: 991143497}
   m_Layer: 0
   m_Name: Inventory
   m_TagString: Untagged
@@ -369,6 +370,25 @@ Transform:
   m_Father: {fileID: 1534048540}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &991143497
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 991143495}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aa67b5182f7866c49b3f0c170b0ad0ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1140107017
 GameObject:
   m_ObjectHideFlags: 0
@@ -935,6 +955,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 362275235, guid: ff1999d6291735f4cafa6652812eab7a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3772689593256066016, guid: ff1999d6291735f4cafa6652812eab7a,
         type: 3}
       propertyPath: inventory.Array.size
@@ -980,6 +1004,11 @@ PrefabInstance:
       propertyPath: inventoryTransforms.Array.data[4]
       value: 
       objectReference: {fileID: 1140107018}
+    - target: {fileID: 3772689593256066016, guid: ff1999d6291735f4cafa6652812eab7a,
+        type: 3}
+      propertyPath: playerInventory
+      value: 
+      objectReference: {fileID: 991143495}
     - target: {fileID: 3772689593256066019, guid: ff1999d6291735f4cafa6652812eab7a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1039,6 +1068,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3772689593256066047, guid: ff1999d6291735f4cafa6652812eab7a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff1999d6291735f4cafa6652812eab7a, type: 3}

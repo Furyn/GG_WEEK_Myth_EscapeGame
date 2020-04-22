@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    public GameObject currentlyEquipped;
+    private GameObject currentlyEquipped;
     private Ray ray;
     private Transform highlighted;
     private Material normalMaterial;
 
+    [HideInInspector]
     public List<InventoryItem> inventory;
+
+    [HideInInspector]
     public Transform[] inventoryTransforms;
 
     [Space]
@@ -17,6 +20,8 @@ public class PlayerInventory : MonoBehaviour
     [Space]
     public Material highlightedMaterial;
     public Transform playerHand;
+
+    public GameObject playerInventory;
 
     [Header("Update with selectableObjects' Tags")]
     public string[] selectableTags;
@@ -118,7 +123,8 @@ public class PlayerInventory : MonoBehaviour
             for (int i = 0; i < inventory.Count; i++)
             {
                 inventory[i].itemGO.transform.position = inventory[i].slotTransform.position;
-                inventory[i].itemGO.transform.SetParent(this.transform);
+                SetParents();
+                Animate();
             }
         }
 
@@ -197,17 +203,37 @@ public class PlayerInventory : MonoBehaviour
 
             inventory[i].slotTransform = inventoryTransforms[i];
         }
+
+        SetParents();
     }
 
     void SwitchInv()
     {
         GameObject tempGO = inventory[0].itemGO;
 
-            for(int i = 0; i < inventory.Count - 1; i++)
-            {
-                inventory[i].itemGO = inventory[i + 1].itemGO;
-            }
+        for(int i = 0; i < inventory.Count - 1; i++)
+        {
+            inventory[i].itemGO = inventory[i + 1].itemGO;
+        }
 
-            inventory[inventory.Count - 1].itemGO = tempGO;
+        inventory[inventory.Count - 1].itemGO = tempGO;
+
+        SetParents();
+    }
+
+    void SetParents()
+    {
+        if(inventory.Count > 0)
+        {
+            for(int i = 0; i < inventory.Count; i++)
+            {
+                inventory[i].itemGO.transform.SetParent(inventoryTransforms[i].gameObject.transform);
+            }
+        }
+    }
+
+    void Animate()
+    {
+        playerInventory.GetComponent<Animator>().Play("Floating items");
     }
 }
