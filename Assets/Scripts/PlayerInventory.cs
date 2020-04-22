@@ -26,11 +26,6 @@ public class PlayerInventory : MonoBehaviour
     [Header("Update with selectableObjects' Tags")]
     public string[] selectableTags;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
     // Update is called once per frame
     void Update()
     {
