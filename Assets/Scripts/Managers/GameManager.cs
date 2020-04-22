@@ -7,12 +7,11 @@ public class GameManager : MonoSingleton<GameManager>
 {
     [HideInInspector]
     public bool isPaused;
-    public GameObject player;
 
     public override void Init()
     {
         base.Init();
-
+        //ResumeGame();
     }
 
     public void LoadScene(string sceneName)
@@ -34,10 +33,31 @@ public class GameManager : MonoSingleton<GameManager>
     {
         isPaused = true;
 
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player.GetComponent<PlayerInventory>().inventory.Count > 1)
+        {
+            player.GetComponent<PlayerInventory>().playerInventory.GetComponent<Animator>().speed = 0.0f;
+        }
+
+        player.GetComponent<Rigidbody>().isKinematic = true;
+        UIManager.Instance.PauseScreen();
     }
 
     public void ResumeGame()
     {
         isPaused = false;
+        UIManager.Instance.ResumeScreens();
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        if (player.GetComponent<PlayerInventory>().inventory.Count > 1)
+        {
+            player.GetComponent<PlayerInventory>().playerInventory.GetComponent<Animator>().speed = 1.0f;
+            player.GetComponent<PlayerInventory>().Animate();
+        }
+
+        player.GetComponent<Rigidbody>().isKinematic = false;
+
     }
 }

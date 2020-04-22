@@ -23,17 +23,20 @@ public class CrouchPlayer : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if(!GameManager.Instance.isPaused)
         {
-            playerBody.transform.localScale = new Vector3(transform.localScale.x, widthOnCrouch, transform.localScale.z);
-            rp.isCrouch = true;
-            mp.isCrouch = true;
-        }
-        else
-        {
-            playerBody.transform.localScale = new Vector3(transform.localScale.x, widthInitOfPlayer, transform.localScale.z);
-            rp.isCrouch = false;
-            mp.isCrouch = false;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                playerBody.transform.localScale = new Vector3(transform.localScale.x, widthOnCrouch, transform.localScale.z);
+                rp.isCrouch = true;
+                mp.isCrouch = true;
+            }
+            else
+            {
+                playerBody.transform.localScale = new Vector3(transform.localScale.x, widthInitOfPlayer, transform.localScale.z);
+                rp.isCrouch = false;
+                mp.isCrouch = false;
+            }
         }
     }
 }

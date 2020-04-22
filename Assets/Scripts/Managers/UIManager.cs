@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
-    GameObject pauseScreen;
-    GameObject settingsScreen;
+    public GameObject pauseScreen;
+    public GameObject settingsScreen;
 
     public override void Init()
     {
         base.Init();
-
+        ResumeScreens();
     }
 
-    void PauseScreen()
+    public void PauseScreen()
     {
 
         if(settingsScreen.activeSelf)
@@ -22,9 +22,12 @@ public class UIManager : MonoSingleton<UIManager>
         }
 
         pauseScreen.SetActive(true);
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
-    void SettingsScreen()
+    public void SettingsScreen()
     {
         if (pauseScreen.activeSelf)
         {
@@ -32,5 +35,11 @@ public class UIManager : MonoSingleton<UIManager>
         }
 
         settingsScreen.SetActive(true);
+    }
+
+    public void ResumeScreens()
+    {
+        pauseScreen.SetActive(false);
+        settingsScreen.SetActive(false);
     }
 }

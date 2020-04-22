@@ -34,54 +34,71 @@ public class MovePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float _xMov = Input.GetAxis("Horizontal");
-        float _zMov = Input.GetAxis("Vertical");
 
-        Vector3 _movHorizontal = transform.right * _xMov;
-        Vector3 _movVertical = transform.forward * _zMov;
-
-        float _speed = speed;
-        if (isCrouch)
+        if (Input.GetKeyDown(KeyCode.P))
         {
-            _speed /= 2;
+            if (!GameManager.Instance.isPaused)
+            {
+                GameManager.Instance.PauseGame();
+            }
+            else
+            {
+                GameManager.Instance.ResumeGame();
+            }
         }
 
-        Vector3 _velocity = (_movHorizontal + _movVertical) * _speed;
+        if (!GameManager.Instance.isPaused)
+        {
+            float _xMov = Input.GetAxis("Horizontal");
+            float _zMov = Input.GetAxis("Vertical");
 
-        if (_velocity != Vector3.zero)
-        {
-            rb.MovePosition(rb.position + _velocity * Time.deltaTime);
-        }
+            Vector3 _movHorizontal = transform.right * _xMov;
+            Vector3 _movVertical = transform.forward * _zMov;
 
-        RaycastHit _hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out _hit, widthCanJump))
-        {
-            canJump = true;
-        }
-        else
-        {
-            canJump = false;
-        }
+            float _speed = speed;
+            if (isCrouch)
+            {
+                _speed /= 2;
+            }
 
-        if (Input.GetButton("Jump") && canJump)
-        {
-            onJump = true;
-            _timerJump = widthJump;
-        }else if (!Input.GetButton("Jump"))
-        {
-            onJump = false;
-        }
+            Vector3 _velocity = (_movHorizontal + _movVertical) * _speed;
 
-        _timerJump -= Time.deltaTime;
+            if (_velocity != Vector3.zero)
+            {
+                rb.MovePosition(rb.position + _velocity * Time.deltaTime);
+            }
 
-        if ( _timerJump >= 0.0f && !isCrouch && onJump)
-        {
-            rb.drag = 0;
-            rb.AddForce(Vector3.up * jumpPower * 1000 * Time.deltaTime, ForceMode.Acceleration);
-        }
-        else
-        {
-            rb.drag = smoothDescentJump;
+            RaycastHit _hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out _hit, widthCanJump))
+            {
+                canJump = true;
+            }
+            else
+            {
+                canJump = false;
+            }
+
+            if (Input.GetButton("Jump") && canJump)
+            {
+                onJump = true;
+                _timerJump = widthJump;
+            }
+            else if (!Input.GetButton("Jump"))
+            {
+                onJump = false;
+            }
+
+            _timerJump -= Time.deltaTime;
+
+            if (_timerJump >= 0.0f && !isCrouch && onJump)
+            {
+                rb.drag = 0;
+                rb.AddForce(Vector3.up * jumpPower * 1000 * Time.deltaTime, ForceMode.Acceleration);
+            }
+            else
+            {
+                rb.drag = smoothDescentJump;
+            }
         }
 
     }

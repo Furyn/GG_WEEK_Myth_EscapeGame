@@ -29,137 +29,128 @@ public class PlayerInventory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.P))
+        if (!GameManager.Instance.isPaused)
         {
-            if(!GameManager.Instance.isPaused)
+            //Unhighlight objects
+
+            if (highlighted != null)
             {
-                GameManager.Instance.PauseGame();
-                StopAnim();
+                highlighted.GetComponent<MeshRenderer>().material = normalMaterial;
+                highlighted = null;
             }
-            else
+
+
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 2, Color.red);
+            RaycastHit hit;
+
+
+            if (Physics.Raycast(ray, out hit, 2))
             {
-                GameManager.Instance.ResumeGame();
-                RestartAnim();
-            }
-        }
-
-        //Unhighlight objects
-
-        if(highlighted != null)
-        {
-            highlighted.GetComponent<MeshRenderer>().material = normalMaterial;
-            highlighted = null;
-        }
-
-
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(ray.origin, ray.direction * 2, Color.red);
-        RaycastHit hit;
-
-
-        if (Physics.Raycast(ray, out hit, 2))
-        {
-            if (CanBeGrabbed(hit.transform.gameObject))
-            {
-                Highlight(hit.transform.gameObject);
-
-                if (Input.GetMouseButtonDown(0))
+                if (CanBeGrabbed(hit.transform.gameObject))
                 {
-                    if (hit.transform.gameObject.CompareTag("Lock"))
+                    Highlight(hit.transform.gameObject);
+
+                    if (Input.GetMouseButtonDown(0))
                     {
-                        if (currentlyEquipped != null)
+                        if (hit.transform.gameObject.CompareTag("Lock"))
                         {
-                            if(hit.transform.GetComponent<Lock>().OpenLock(currentlyEquipped.transform.gameObject))
+                            if (currentlyEquipped != null)
+                            {
+                                if (hit.transform.GetComponent<Lock>().OpenLock(currentlyEquipped.transform.gameObject))
+                                {
+                                    Drop();
+                                }
+                            }
+
+                            else
+                            {
+                                Debug.Log("I need a key to open this...");
+                            }
+                        }
+
+                        if (hit.transform.gameObject.CompareTag("Key"))
+                        {
+                            PickUp(hit.transform.gameObject);
+                        }
+                    }
+
+                    else
+                    {
+                        if (Input.GetMouseButtonDown(0))
+                        {
+                            if (currentlyEquipped != null)
                             {
                                 Drop();
                             }
                         }
-
-                        else
-                        {
-                            Debug.Log("I need a key to open this...");
-                        }
                     }
 
-                    if (hit.transform.gameObject.CompareTag("Key"))
-                    {
-                        PickUp(hit.transform.gameObject);
-                    }
-                }
-
-                else
-                {
-                    if (Input.GetMouseButtonDown(0))
-                    {
-                        if (currentlyEquipped != null)
-                        {
-                            Drop();
-                        }
-                    }
                 }
 
             }
-            
-        }
 
-        else
-        {
-            if (Input.GetMouseButtonDown(0))
+            else
             {
-                if (currentlyEquipped != null)
+                if (Input.GetMouseButtonDown(0))
                 {
-                    Drop();
+                    if (currentlyEquipped != null)
+                    {
+                        Drop();
+                    }
                 }
             }
-        }
 
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (inventory.Count > 1)
+            if (Input.GetMouseButtonDown(1))
             {
-                SwitchInv();
+                if (inventory.Count > 1)
+                {
+                    SwitchInv();
+                }
             }
+
         }
 
     }
 
     private void LateUpdate()
     {
-        if(inventory.Count > 0)
+        if (inventory.Count > 0)
         {
             currentlyEquipped = inventory[0].itemGO;
+
             for (int i = 0; i < inventory.Count; i++)
             {
                 inventory[i].itemGO.transform.position = inventory[i].slotTransform.position;
-                SetParents();
-                Animate();
             }
+
+            SetParents();
+            Animate();
         }
 
         else
         {
             currentlyEquipped = null;
         }
-        
+
     }
 
     void PickUp(GameObject objToPickUp)
     {
-            {
-                 inventory.Add(new InventoryItem(objToPickUp, inventoryTransforms[inventory.Count]));
-            }
+        if(inventory.Count < inventoryTransforms.Length)
+        {
+            inventory.Add(new InventoryItem(objToPickUp, inventoryTransforms[inventory.Count]));
 
-                currentlyEquipped = objToPickUp;
-                currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
-
+            currentlyEquipped = objToPickUp;
+            currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 
     void Drop()
@@ -202,8 +193,6 @@ public class PlayerInventory : MonoBehaviour
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            Debug.Log("Cycling...");
-
             inventory[i].slotTransform = inventoryTransforms[i];
         }
 
@@ -214,7 +203,7 @@ public class PlayerInventory : MonoBehaviour
     {
         GameObject tempGO = inventory[0].itemGO;
 
-        for(int i = 0; i < inventory.Count - 1; i++)
+        for (int i = 0; i < inventory.Count - 1; i++)
         {
             inventory[i].itemGO = inventory[i + 1].itemGO;
         }
@@ -226,36 +215,20 @@ public class PlayerInventory : MonoBehaviour
 
     void SetParents()
     {
-        if(inventory.Count > 0)
+        if (inventory.Count > 0)
         {
-            for(int i = 0; i < inventory.Count; i++)
+            for (int i = 0; i < inventory.Count; i++)
             {
                 inventory[i].itemGO.transform.SetParent(inventoryTransforms[i].gameObject.transform);
             }
         }
     }
 
-    void Animate()
+    public void Animate()
     {
-        if(inventory.Count > 1)
+        if (inventory.Count > 1)
         {
             playerInventory.GetComponent<Animator>().Play("Floating items");
-        }
-    }
-
-    void StopAnim()
-    {
-        if (inventory.Count > 1)
-        {
-            playerInventory.GetComponent<Animator>().speed = 0.0f;
-        }
-    }
-
-    void RestartAnim()
-    {
-        if (inventory.Count > 1)
-        {
-            playerInventory.GetComponent<Animator>().speed = 1.0f;
         }
     }
 }

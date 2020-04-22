@@ -34,45 +34,47 @@ public class RotationPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        float _amplitude = amplitudeWobbling;
-        float _speed = speedWobbling;
-        if (isCrouch)
+        if(!GameManager.Instance.isPaused)
         {
-            _amplitude = amplitudeWobblingCrouch;
-            _speed = speedWobblingCrouch;
+            float _amplitude = amplitudeWobbling;
+            float _speed = speedWobbling;
+            if (isCrouch)
+            {
+                _amplitude = amplitudeWobblingCrouch;
+                _speed = speedWobblingCrouch;
+            }
+
+            _amplitude /= 100;
+
+            if (_isIncreasing)
+                _numberIncrease += _speed / 1;
+            else
+                _numberIncrease -= _speed / 10000;
+
+            if (_numberIncrease > _amplitude)
+            {
+                _numberIncrease = _amplitude;
+            }
+            else if (_numberIncrease < -_amplitude)
+            {
+                _numberIncrease = -_amplitude;
+            }
+
+            if (_numberIncrease >= _amplitude)
+                _isIncreasing = false;
+            else if (_numberIncrease <= -_amplitude)
+                _isIncreasing = true;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
+            float mouseY = (Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime) + _numberIncrease;
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+            playerBody.Rotate(Vector3.up * mouseX);
+            Cursor.visible = false;
         }
-
-        _amplitude /= 100;
-
-        if (_isIncreasing)
-            _numberIncrease += _speed / 1;
-        else
-            _numberIncrease -= _speed / 10000;
-
-        if (_numberIncrease > _amplitude)
-        {
-            _numberIncrease = _amplitude;
-        }
-        else if (_numberIncrease < -_amplitude)
-        {
-            _numberIncrease = -_amplitude;
-        }
-
-        if (_numberIncrease >= _amplitude)
-            _isIncreasing = false;
-        else if (_numberIncrease <= -_amplitude)
-            _isIncreasing = true;
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = (Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime) + _numberIncrease;
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        playerCam.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        playerBody.Rotate(Vector3.up * mouseX);
-        Cursor.visible = false;
     }
 }
