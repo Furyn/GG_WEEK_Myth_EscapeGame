@@ -12,7 +12,6 @@ public class PlayerInventory : MonoBehaviour
     [HideInInspector]
     public List<InventoryItem> inventory;
 
-
     public Transform[] inventoryTransforms;
 
     [Space]
@@ -70,7 +69,7 @@ public class PlayerInventory : MonoBehaviour
                             }
                         }
 
-                        if (hit.transform.gameObject.CompareTag("Key"))
+                        if (hit.transform.gameObject.GetComponent<PickableObjectStats>())
                         {
                             PickUp(hit.transform.gameObject);
                         }
@@ -153,8 +152,10 @@ public class PlayerInventory : MonoBehaviour
 
         currentlyEquipped.transform.SetParent(null);
         currentlyEquipped.GetComponent<Rigidbody>().isKinematic = false;
+        currentlyEquipped.GetComponent<Rigidbody>().velocity = (ray.direction * currentlyEquipped.GetComponent<PickableObjectStats>().Weight);
         inventory.Remove(inventory[0]);
         currentlyEquipped = null;
+        StartCoroutine(Wait());
 
         if (inventory.Count > 0)
         {
@@ -225,5 +226,10 @@ public class PlayerInventory : MonoBehaviour
         {
             playerInventory.GetComponent<Animator>().Play("Floating items");
         }
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.1f);
     }
 }
