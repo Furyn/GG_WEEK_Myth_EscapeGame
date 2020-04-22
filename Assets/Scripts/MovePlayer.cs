@@ -36,7 +36,6 @@ public class MovePlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(widthInitJump + " / " + transform.position.y + "JUMP : " + onJump);
         if (Input.GetKeyDown(KeyCode.P))
         {
             if (!GameManager.Instance.isPaused)
