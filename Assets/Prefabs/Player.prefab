@@ -628,9 +628,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  jumpPower: 1
-  widthJump: 1
-  widthCanJump: 1.2
+  jumpPower: 10
+  maxTimeJump: 2
+  maxWithJump: 10
   smoothDescentJump: 2
   isCrouch: 0
 --- !u!114 &1856454629
