@@ -35,6 +35,21 @@ public class PlayerInventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            if(!GameManager.Instance.isPaused)
+            {
+                GameManager.Instance.PauseGame();
+                StopAnim();
+            }
+            else
+            {
+                GameManager.Instance.ResumeGame();
+                RestartAnim();
+            }
+        }
+
         //Unhighlight objects
 
         if(highlighted != null)
@@ -103,16 +118,17 @@ public class PlayerInventory : MonoBehaviour
                     Drop();
                 }
             }
+        }
 
-            else if (Input.GetMouseButtonDown(1))
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            if (inventory.Count > 1)
             {
-                if (inventory.Count > 1)
-                {
-                    SwitchInv();
-                }
+                SwitchInv();
             }
         }
-            
+
     }
 
     private void LateUpdate()
@@ -182,19 +198,6 @@ public class PlayerInventory : MonoBehaviour
         return false;
     }
 
-    //bool IsInvEmpty(int inventoryCount)
-    //{
-    //    if(inventoryCount <= 0)
-    //    {
-    //        Debug.Log("Inventory's empty. Addind item...");
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        return false;
-    //    }
-    //}
-
     void RearrangeInvPos()
     {
         for (int i = 0; i < inventory.Count; i++)
@@ -234,6 +237,25 @@ public class PlayerInventory : MonoBehaviour
 
     void Animate()
     {
-        playerInventory.GetComponent<Animator>().Play("Floating items");
+        if(inventory.Count > 1)
+        {
+            playerInventory.GetComponent<Animator>().Play("Floating items");
+        }
+    }
+
+    void StopAnim()
+    {
+        if (inventory.Count > 1)
+        {
+            playerInventory.GetComponent<Animator>().speed = 0.0f;
+        }
+    }
+
+    void RestartAnim()
+    {
+        if (inventory.Count > 1)
+        {
+            playerInventory.GetComponent<Animator>().speed = 1.0f;
+        }
     }
 }
