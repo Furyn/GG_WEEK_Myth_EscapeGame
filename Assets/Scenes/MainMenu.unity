@@ -307,7 +307,7 @@ PrefabInstance:
     - target: {fileID: 145218516811662475, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 145218516811662475, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
         type: 3}
@@ -1048,6 +1048,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684391891269899086, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684391891269899086, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684391891269899086, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
+        type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684391891269899086, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.r
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684391891269899086, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.g
+      value: 0.29810432
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684391891269899086, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
+        type: 3}
+      propertyPath: m_Colors.m_PressedColor.b
+      value: 0.59313536
+      objectReference: {fileID: 0}
+    - target: {fileID: 4873988639297014843, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 4873988639297014843, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
+        type: 3}
+      propertyPath: m_Type
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6769303790353275255, guid: 1852765da3ffb8d4a9bc0bbcb0b05d52,
         type: 3}
