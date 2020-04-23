@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CrouchPlayer))]
+[RequireComponent(typeof(RotationPlayer))]
 public class MovePlayer : MonoBehaviour
 {
 
@@ -23,13 +25,18 @@ public class MovePlayer : MonoBehaviour
     private float widthCanJump = 1.2f;
     private float widthInitJump;
 
+    private CrouchPlayer crP;
+    private RotationPlayer rP;
+
     [HideInInspector]
     public bool isCrouch = false;
 
     // Start is called before the first frame update
     void Start()
     {
+        crP = GetComponent<CrouchPlayer>();
         rb = GetComponent<Rigidbody>();
+        rP = GetComponent<RotationPlayer>();
         _timerJump = 0.0f;
     }
 
@@ -70,8 +77,12 @@ public class MovePlayer : MonoBehaviour
             }
 
             RaycastHit _hit;
-            if (Physics.Raycast(transform.position, Vector3.down, out _hit, widthCanJump))
+            if (Physics.Raycast(transform.position, Vector3.down, out _hit, widthCanJump) && !onJump)
             {
+                if (!canJump)
+                {
+                    rP.screenCheckTouchGround = true;
+                }
                 canJump = true;
             }
             else
@@ -84,17 +95,24 @@ public class MovePlayer : MonoBehaviour
                 if (_timerJump < maxTimeJump)
                 {
                     _timerJump += Time.deltaTime;
+                    crP.onCrouch = true;
                 }
                 else if (canJump)
                 {
                     widthInitJump = transform.position.y;
                     onJump = true;
+                    crP.onCrouch = false;
+                }
+                else
+                {
+                    crP.onCrouch = false;
                 }
             }
             else if (Input.GetKeyUp(KeyCode.Space) && canJump)
             {
                 widthInitJump = transform.position.y;
                 onJump = true;
+                crP.onCrouch = false;
             }
             else if (_timerJump <= 0.0f)
             {

@@ -649,6 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   widthOnCrouch: 0.5
   playerBody: {fileID: 362275232}
+  onCrouch: 0
 --- !u!114 &1856454630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,10 +664,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseSensitivity: 100
   playerBody: {fileID: 3772689593256066019}
-  amplitudeWobbling: 3
+  amplitudeWobbling: 8
   amplitudeWobblingCrouch: 1.5
-  speedWobbling: 2.5
+  speedWobbling: 65
   speedWobblingCrouch: 1.25
+  screenCheckHoldJump: 0
+  screenCheckTouchGround: 0
+  screenCheckWalk: 0
+  amplitudeScreenCheckHoldJump: 0.3
+  amplitudeScreenCheckTouchGround: 1
+  timeScreenCheckTouchGround: 0.2
+  amplitudeScreenCheckWalk: 0.2
+  timeScreenCheckWalk: 0.1
   isCrouch: 0
   playerCam: {fileID: 3772689594022504965}
 --- !u!1 &3772689593449611374
