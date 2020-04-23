@@ -44,12 +44,10 @@ public class RotationPlayer : MonoBehaviour
                 _speed = speedWobblingCrouch;
             }
 
-            _amplitude /= 100;
-
             if (_isIncreasing)
-                _numberIncrease += _speed / 1;
+                _numberIncrease += _speed / 100;
             else
-                _numberIncrease -= _speed / 10000;
+                _numberIncrease -= _speed / 1000;
 
             if (_numberIncrease > _amplitude)
             {
@@ -68,7 +66,7 @@ public class RotationPlayer : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = (Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime) + _numberIncrease;
+            float mouseY = (Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime) + _numberIncrease * Time.deltaTime;
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
