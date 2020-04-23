@@ -105,8 +105,8 @@ public class PlayerInventory : MonoBehaviour
                                 if (!currentlyEquipped.GetComponent<PickableObjectStats>().putOnTable)
                                 {
                                     GameObject equippedObject = currentlyEquipped.gameObject;
-                                    hit.transform.gameObject.GetComponent<Banquet>().PutItemOn(equippedObject);
                                     Drop();
+                                    hit.transform.gameObject.GetComponent<Banquet>().PutItemOn(equippedObject);
 
                                 }
                             }

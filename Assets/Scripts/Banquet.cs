@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class Banquet : MonoBehaviour
 {
+    [Header("Put the items the player has to find")]
     public List<GameObject> gameObjectsNeeded;
+    [Space]
+    [HideInInspector]
     public List<GameObject> gameObjectsOnTable;
+    [Header("Works like inventory slots")]
     public Transform[] placesToTransform;
-    private GameObject player;
-    public int itemsOnTable = 0;
+    public GameObject player;
+    private int itemsOnTable = 0;
 
     private void Start()
     {
@@ -17,39 +21,42 @@ public class Banquet : MonoBehaviour
     public void PutItemOn(GameObject selectedObject)
     {
 
-        if(player.GetComponent<PlayerInventory>().inventory.Count > 0)
+        /*if(player.GetComponent<PlayerInventory>().inventory.Count > 0)
         {
             player.GetComponent<PlayerInventory>().Drop();
-        }
+        }*/
 
+        if(itemsOnTable < gameObjectsNeeded.Count)
+        {
             selectedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             selectedObject.GetComponent<Rigidbody>().isKinematic = true;
 
-                for (int i = 0; i < gameObjectsOnTable.Count; i++)
+            for (int i = 0; i < gameObjectsOnTable.Count; i++)
+            {
+                if (gameObjectsOnTable[i] == null)
                 {
-                    if(gameObjectsOnTable[i] == null)
-                    {
-                        gameObjectsOnTable[i] = selectedObject;
+                    gameObjectsOnTable[i] = selectedObject;
 
-                        selectedObject.transform.position = placesToTransform[i].position;
-                        selectedObject.transform.rotation = placesToTransform[i].rotation;
+                    selectedObject.transform.position = placesToTransform[i].position;
+                    selectedObject.transform.rotation = placesToTransform[i].rotation;
 
-                        itemsOnTable++;
-                        
-                        break;
-                    }
+                    itemsOnTable++;
 
+                    break;
                 }
 
+            }
 
 
-                Debug.Log("Items on table : " + itemsOnTable);
-                if(itemsOnTable == gameObjectsNeeded.Count)
-                {
-                    CheckComposition();
-                }
 
-                selectedObject.GetComponent<PickableObjectStats>().putOnTable = true;
+            Debug.Log("Items on table : " + itemsOnTable);
+            if (itemsOnTable == gameObjectsNeeded.Count)
+            {
+                CheckComposition();
+            }
+
+            selectedObject.GetComponent<PickableObjectStats>().putOnTable = true;
+        }           
     }
 
     public void PullItemFrom(GameObject highlightedObject)
