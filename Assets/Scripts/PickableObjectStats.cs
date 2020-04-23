@@ -8,6 +8,8 @@ public class PickableObjectStats : MonoBehaviour
     [Range(4, 20)]
     public float Weight = 4;
 
+    [HideInInspector]
     public bool inInventory = false;
+    [HideInInspector]
     public bool putOnTable = false;
 }

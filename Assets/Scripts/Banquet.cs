@@ -6,16 +6,26 @@ public class Banquet : MonoBehaviour
 {
     [Header("Put the items the player has to find")]
     public List<GameObject> gameObjectsNeeded;
+
     [Space]
+
     [HideInInspector]
     public List<GameObject> gameObjectsOnTable;
+
     [Header("Works like inventory slots")]
     public Transform[] placesToTransform;
-    public GameObject player;
-    private int itemsOnTable = 0;
+    private GameObject player;
+
+    [HideInInspector]
+    public int itemsOnTable = 0;
 
     private void Start()
     {
+        for(int i = 0; i < gameObjectsNeeded.Count; i++)
+        {
+            gameObjectsOnTable.Add(null);
+        }
+
         player = GameObject.FindGameObjectWithTag("Player");
     }
     public void PutItemOn(GameObject selectedObject)
@@ -26,7 +36,7 @@ public class Banquet : MonoBehaviour
             player.GetComponent<PlayerInventory>().Drop();
         }*/
 
-        if(itemsOnTable < gameObjectsNeeded.Count)
+        if (itemsOnTable < gameObjectsNeeded.Count)
         {
             selectedObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             selectedObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -47,32 +57,44 @@ public class Banquet : MonoBehaviour
 
             }
 
-
-
             Debug.Log("Items on table : " + itemsOnTable);
-            if (itemsOnTable == gameObjectsNeeded.Count)
+
+            int tabled = 0;
+
+            for (int i = 0; i < gameObjectsNeeded.Count; i++)
+            {
+
+                if (gameObjectsOnTable[i] != null)
+                {
+                    tabled++;
+                }
+            }
+
+            if (tabled >= gameObjectsNeeded.Count)
             {
                 CheckComposition();
             }
 
-            selectedObject.GetComponent<PickableObjectStats>().putOnTable = true;
+        selectedObject.GetComponent<PickableObjectStats>().putOnTable = true;
+            selectedObject.GetComponent<Rigidbody>().isKinematic = false;
         }           
     }
 
     public void PullItemFrom(GameObject highlightedObject)
     {
+        Debug.Log(itemsOnTable);
+        itemsOnTable--;
 
         for (int i = 0; i < gameObjectsOnTable.Count; i++)
         {
-            if(highlightedObject.gameObject == gameObjectsOnTable[i])
+            if(gameObjectsOnTable[i] == highlightedObject.gameObject)
             {
-                gameObjectsOnTable[i].GetComponent<PickableObjectStats>().putOnTable = false;
                 gameObjectsOnTable[i].GetComponent<Rigidbody>().isKinematic = false;
+                gameObjectsOnTable[i].GetComponent<Rigidbody>().velocity = new Vector3(0, 2, Vector3.back.z * 4);
+                highlightedObject.GetComponent<PickableObjectStats>().putOnTable = false;
                 gameObjectsOnTable[i] = null;
             }
         }
-
-        itemsOnTable--;
 
     }
 
@@ -102,22 +124,20 @@ public class Banquet : MonoBehaviour
 
             else
             {
-                gameObjectsOnTable[i].GetComponent<Rigidbody>().isKinematic = false;
-                gameObjectsOnTable[i].GetComponent<Rigidbody>().velocity = new Vector3(4, 2, 0);
+                
                 PullItemFrom(gameObjectsOnTable[i]);
             }
+        }
 
-            if (good == 4)
-            {
-                Debug.Log("Gagné!");
-            }
+        if (good < gameObjectsNeeded.Count)
+        {
+            Debug.Log("Perdu!");
 
-            else
-            {
-                Debug.Log("Perdu!");
-            }
+        }
 
-
+        else
+        {
+            Debug.Log("Gagné!");
         }
     }
 }

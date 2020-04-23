@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7110786726386324936}
   m_Layer: 0
   m_Name: Key
-  m_TagString: Key
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 9149194402010274918}
   m_LocalRotation: {x: 0.102804966, y: -0.24819316, z: -0.36861598, w: 0.8899178}
   m_LocalPosition: {x: 2.4869783, y: 2.1771932, z: 0.7959084}
-  m_LocalScale: {x: 0.08609717, y: 0.35969803, z: 0.08609717}
+  m_LocalScale: {x: 0.25181, y: 0.25181, z: 0.25181}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -124,3 +124,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Weight: 4
+  inInventory: 0
+  putOnTable: 0

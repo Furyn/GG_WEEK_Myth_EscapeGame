@@ -22,9 +22,6 @@ public class PlayerInventory : MonoBehaviour
 
     public GameObject playerInventory;
 
-    [Header("Update with selectableObjects' Tags")]
-    public string[] selectableTags;
-
     // Update is called once per frame
     void Update()
     {
@@ -89,7 +86,7 @@ public class PlayerInventory : MonoBehaviour
                         {
                             if(!hit.transform.gameObject.GetComponent<PickableObjectStats>().inInventory)
                             {
-                                if (hit.transform.gameObject.GetComponent<PickableObjectStats>().putOnTable)
+                                if (hit.transform.GetComponent<PickableObjectStats>().putOnTable)
                                 {
                                     GameObject.FindGameObjectWithTag("Banquet").GetComponent<Banquet>().PullItemFrom(hit.transform.gameObject);
                                 }
@@ -223,14 +220,15 @@ public class PlayerInventory : MonoBehaviour
 
     bool CanBeInteractedWith(GameObject aimedObject)
     {
-        for (int i = 0; i < selectableTags.Length; i++)
-        {
-            if (aimedObject.transform.CompareTag(selectableTags[i]))
+            if (aimedObject.transform.GetComponent<PickableObjectStats>() || aimedObject.CompareTag("Banquet"))
             {
                 return true;
             }
-        }
-        return false;
+            else
+            {
+                return false;
+
+            }
     }
 
     void RearrangeInvPos()
@@ -278,6 +276,6 @@ public class PlayerInventory : MonoBehaviour
 
     IEnumerator Wait()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.2f);
     }
 }
