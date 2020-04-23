@@ -8,6 +8,7 @@ TagManager:
   - Lock
   - Menu
   - Music
+  - Banquet
   layers:
   - Default
   - TransparentFX

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    private GameObject currentlyEquipped;
+    public GameObject currentlyEquipped;
     private Ray ray;
     private Transform highlighted;
     private Material normalMaterial;
@@ -47,13 +47,29 @@ public class PlayerInventory : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, 2))
             {
-                if (CanBeGrabbed(hit.transform.gameObject))
+                if (CanBeInteractedWith(hit.transform.gameObject))
                 {
-                    Highlight(hit.transform.gameObject);
+                    if (hit.transform.gameObject.GetComponent<PickableObjectStats>())
+                    {
+                        if (!hit.transform.gameObject.GetComponent<PickableObjectStats>().inInventory)
+                        {
+                            Highlight(hit.transform.gameObject);
+                        }
+                    }
+
+                    else if(hit.transform.GetComponent<Lock>())
+                    {
+                        Highlight(hit.transform.gameObject);
+                    }
+
+                    else if (hit.transform.GetComponent<Banquet>())
+                    {
+                        Highlight(hit.transform.gameObject);
+                    }
 
                     if (Input.GetMouseButtonDown(0))
                     {
-                        if (hit.transform.gameObject.CompareTag("Lock"))
+                        if (hit.transform.gameObject.GetComponent<Lock>())
                         {
                             if (currentlyEquipped != null)
                             {
@@ -69,9 +85,31 @@ public class PlayerInventory : MonoBehaviour
                             }
                         }
 
-                        if (hit.transform.gameObject.GetComponent<PickableObjectStats>())
+                        else if (hit.transform.gameObject.GetComponent<PickableObjectStats>())
                         {
-                            PickUp(hit.transform.gameObject);
+                            if(!hit.transform.gameObject.GetComponent<PickableObjectStats>().inInventory)
+                            {
+                                if (hit.transform.gameObject.GetComponent<PickableObjectStats>().putOnTable)
+                                {
+                                    GameObject.FindGameObjectWithTag("Banquet").GetComponent<Banquet>().PullItemFrom(hit.transform.gameObject);
+                                }
+
+                                PickUp(hit.transform.gameObject);
+                            }
+                        }
+
+                        else if(hit.transform.gameObject.GetComponent<Banquet>())
+                        {
+                            if(currentlyEquipped != null)
+                            {
+                                if (!currentlyEquipped.GetComponent<PickableObjectStats>().putOnTable)
+                                {
+                                    GameObject equippedObject = currentlyEquipped.gameObject;
+                                    hit.transform.gameObject.GetComponent<Banquet>().PutItemOn(equippedObject);
+                                    Drop();
+
+                                }
+                            }
                         }
                     }
 
@@ -136,7 +174,7 @@ public class PlayerInventory : MonoBehaviour
 
     }
 
-    void PickUp(GameObject objToPickUp)
+    public void PickUp(GameObject objToPickUp)
     {
         if(inventory.Count < inventoryTransforms.Length)
         {
@@ -144,24 +182,34 @@ public class PlayerInventory : MonoBehaviour
 
             currentlyEquipped = objToPickUp;
             currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
+            currentlyEquipped.GetComponent<PickableObjectStats>().putOnTable = false;
+            currentlyEquipped.GetComponent<PickableObjectStats>().inInventory = true;
         }
     }
 
-    void Drop()
+    public void Drop()
     {
+        if(inventory.Count > 0)
+        { 
+            currentlyEquipped.transform.SetParent(null);
 
-        currentlyEquipped.transform.SetParent(null);
-        currentlyEquipped.GetComponent<Rigidbody>().isKinematic = false;
-        currentlyEquipped.GetComponent<Rigidbody>().velocity = (ray.direction * currentlyEquipped.GetComponent<PickableObjectStats>().Weight);
-        inventory.Remove(inventory[0]);
-        currentlyEquipped = null;
-        StartCoroutine(Wait());
+            if (!currentlyEquipped.GetComponent<PickableObjectStats>().putOnTable)
+            {
+                currentlyEquipped.GetComponent<Rigidbody>().isKinematic = false;
+            }
 
-        if (inventory.Count > 0)
-        {
-            RearrangeInvPos();
+            currentlyEquipped.GetComponent<Rigidbody>().velocity = (ray.direction * currentlyEquipped.GetComponent<PickableObjectStats>().Weight);
+            currentlyEquipped.GetComponent<PickableObjectStats>().inInventory = false;
+            inventory.Remove(inventory[0]);
+            currentlyEquipped = null;
+
+            StartCoroutine(Wait());
+
+            if (inventory.Count > 0)
+            {
+                RearrangeInvPos();
+            }
         }
-
     }
 
     void Highlight(GameObject aimedObject)
@@ -173,7 +221,7 @@ public class PlayerInventory : MonoBehaviour
 
 
 
-    bool CanBeGrabbed(GameObject aimedObject)
+    bool CanBeInteractedWith(GameObject aimedObject)
     {
         for (int i = 0; i < selectableTags.Length; i++)
         {
