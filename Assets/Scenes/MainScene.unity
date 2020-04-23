@@ -519,46 +519,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 890566533013334868, guid: c5de1d193b323cc4e95075ee31415ef0,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2033930463}
+    - target: {fileID: 2581973514845235743, guid: c5de1d193b323cc4e95075ee31415ef0,
+        type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2033930463}
     - target: {fileID: 4126481608918789323, guid: c5de1d193b323cc4e95075ee31415ef0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2033930464}
-    - target: {fileID: 4126481608918789323, guid: c5de1d193b323cc4e95075ee31415ef0,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SettingsScreen
-      objectReference: {fileID: 0}
     - target: {fileID: 4126481609018738449, guid: c5de1d193b323cc4e95075ee31415ef0,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2033930463}
-    - target: {fileID: 4126481609018738449, guid: c5de1d193b323cc4e95075ee31415ef0,
-        type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeVolumeMusic
-      objectReference: {fileID: 0}
     - target: {fileID: 4126481609920747154, guid: c5de1d193b323cc4e95075ee31415ef0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2033930465}
-    - target: {fileID: 4126481609920747154, guid: c5de1d193b323cc4e95075ee31415ef0,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResumeGame
-      objectReference: {fileID: 0}
     - target: {fileID: 4126481610061811158, guid: c5de1d193b323cc4e95075ee31415ef0,
         type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2033930463}
-    - target: {fileID: 4126481610061811158, guid: c5de1d193b323cc4e95075ee31415ef0,
-        type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeVolumeSFX
-      objectReference: {fileID: 0}
     - target: {fileID: 4126481610074571458, guid: c5de1d193b323cc4e95075ee31415ef0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -619,21 +609,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 4126481610395033760, guid: c5de1d193b323cc4e95075ee31415ef0,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4126481610934572931, guid: c5de1d193b323cc4e95075ee31415ef0,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2033930464}
-    - target: {fileID: 4126481610934572931, guid: c5de1d193b323cc4e95075ee31415ef0,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PauseScreen
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5de1d193b323cc4e95075ee31415ef0, type: 3}
 --- !u!114 &575356858 stripped

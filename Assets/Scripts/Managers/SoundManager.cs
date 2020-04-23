@@ -11,8 +11,8 @@ public class SoundManager : MonoSingleton<SoundManager>
     public Slider musicSlider;
     public Slider SFXSlider;
 
-    public bool isMusicOn;
-    public bool isSFXOn;
+    public bool isMusicOn = true;
+    public bool isSFXOn = true;
 
     public override void Init()
     {
@@ -44,6 +44,8 @@ public class SoundManager : MonoSingleton<SoundManager>
         {
             ChangeVolumeMusic();
         }
+
+        isMusicOn = !isMusicOn;
     }
 
     public void ToggleSFX()
@@ -59,6 +61,8 @@ public class SoundManager : MonoSingleton<SoundManager>
         {
             ChangeVolumeSFX();
         }
+
+        isSFXOn = !isSFXOn;
     }
 
     public void PlaySFX(AudioSource SFXToPlay)
