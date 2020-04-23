@@ -14,6 +14,9 @@ public class CrouchPlayer : MonoBehaviour
     [SerializeField]
     private GameObject playerBody;
 
+    [HideInInspector]
+    public bool onCrouch = false;
+
     void Start()
     {
         widthInitOfPlayer = playerBody.transform.localScale.y;
@@ -25,15 +28,17 @@ public class CrouchPlayer : MonoBehaviour
     {
         if(!GameManager.Instance.isPaused)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (onCrouch)
             {
                 playerBody.transform.localScale = new Vector3(transform.localScale.x, widthOnCrouch, transform.localScale.z);
+                rp.screenCheckHoldJump = true;
                 rp.isCrouch = true;
                 mp.isCrouch = true;
             }
             else
             {
                 playerBody.transform.localScale = new Vector3(transform.localScale.x, widthInitOfPlayer, transform.localScale.z);
+                rp.screenCheckHoldJump = false;
                 rp.isCrouch = false;
                 mp.isCrouch = false;
             }

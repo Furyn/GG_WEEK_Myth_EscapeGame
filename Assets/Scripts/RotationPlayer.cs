@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(CrouchPlayer))]
 public class RotationPlayer : MonoBehaviour
 {
     public float mouseSensitivity = 100f;
@@ -11,6 +12,24 @@ public class RotationPlayer : MonoBehaviour
     public float amplitudeWobblingCrouch = 1.5f;
     public float speedWobbling = 2.5f;
     public float speedWobblingCrouch = 1.25f;
+
+    [HideInInspector]
+    public bool screenCheckHoldJump = false;
+    [HideInInspector]
+    public bool screenCheckTouchGround = false;
+    [HideInInspector]
+    public bool screenCheckWalk = false;
+
+    public float amplitudeScreenCheckHoldJump = 1.0f;
+
+    public float amplitudeScreenCheckTouchGround = 1.0f;
+    public float timeScreenCheckTouchGround = 0.1f;
+
+    public float amplitudeScreenCheckWalk = 1.0f;
+    public float timeScreenCheckWalk = 0.1f;
+
+    private float _timeScreenCheckTouchGround;
+    private float _timeScreenCheckWalk;
 
     [HideInInspector]
     public bool isCrouch = false;
@@ -29,6 +48,8 @@ public class RotationPlayer : MonoBehaviour
             Debug.LogError("CAMERA NON REFERENCER");
         }
         Cursor.lockState = CursorLockMode.Locked;
+        _timeScreenCheckTouchGround = timeScreenCheckTouchGround;
+        _timeScreenCheckWalk = timeScreenCheckWalk;
     }
 
     // Update is called once per frame
@@ -44,12 +65,10 @@ public class RotationPlayer : MonoBehaviour
                 _speed = speedWobblingCrouch;
             }
 
-            _amplitude /= 100;
-
             if (_isIncreasing)
-                _numberIncrease += _speed / 1;
+                _numberIncrease += _speed / 100;
             else
-                _numberIncrease -= _speed / 10000;
+                _numberIncrease -= _speed / 1000;
 
             if (_numberIncrease > _amplitude)
             {
@@ -58,17 +77,51 @@ public class RotationPlayer : MonoBehaviour
             else if (_numberIncrease < -_amplitude)
             {
                 _numberIncrease = -_amplitude;
+                screenCheckWalk = true;
             }
 
             if (_numberIncrease >= _amplitude)
                 _isIncreasing = false;
             else if (_numberIncrease <= -_amplitude)
+            {
                 _isIncreasing = true;
+            }
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-            float mouseY = (Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime) + _numberIncrease;
+            float mouseY = (Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime) + _numberIncrease * Time.deltaTime;
+
+            if (screenCheckHoldJump)
+            {
+                mouseX += Random.Range(-amplitudeScreenCheckHoldJump, amplitudeScreenCheckHoldJump);
+                mouseY += Random.Range(-amplitudeScreenCheckHoldJump, amplitudeScreenCheckHoldJump);
+            }
+
+            if (screenCheckTouchGround && _timeScreenCheckTouchGround > 0.0f)
+            {
+                _timeScreenCheckTouchGround -= Time.deltaTime;
+                mouseX += Random.Range(-amplitudeScreenCheckTouchGround, amplitudeScreenCheckTouchGround);
+                mouseY += Random.Range(-amplitudeScreenCheckTouchGround, amplitudeScreenCheckTouchGround);
+            }
+            else
+            {
+                screenCheckTouchGround = false;
+                _timeScreenCheckTouchGround = timeScreenCheckTouchGround;
+            }
+
+            if ( screenCheckWalk && _timeScreenCheckWalk > 0.0f && !screenCheckTouchGround && !screenCheckHoldJump)
+            {
+                _timeScreenCheckWalk -= Time.deltaTime;
+                mouseX += Random.Range(-amplitudeScreenCheckWalk, amplitudeScreenCheckWalk);
+                mouseY += Random.Range(-amplitudeScreenCheckWalk, amplitudeScreenCheckWalk);
+            }
+            else
+            {
+                screenCheckWalk = false;
+                _timeScreenCheckWalk = timeScreenCheckWalk;
+            }
+
             xRotation -= mouseY;
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
