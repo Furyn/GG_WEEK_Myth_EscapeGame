@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8135811806106925278}
   - component: {fileID: 866137289657407519}
   - component: {fileID: 8686981680169378036}
+  - component: {fileID: -1646424975734099532}
   m_Layer: 0
   m_Name: roof_low
   m_TagString: Untagged
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &-1646424975734099532
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3860230960922329749}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -5964189683204602363, guid: 3ca43caf5bd9f5a4890added4431930e, type: 3}

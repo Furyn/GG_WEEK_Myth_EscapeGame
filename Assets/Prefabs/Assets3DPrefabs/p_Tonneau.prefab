@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8201664750356448347}
   - component: {fileID: 903301706771201645}
   - component: {fileID: 6896600332790530708}
+  - component: {fileID: 7738486067455513884}
   m_Layer: 0
   m_Name: p_Tonneau
   m_TagString: Untagged
@@ -25,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5154778217202071112}
-  m_LocalRotation: {x: -0.7071067, y: -0.00000003090862, z: -0.000000030908613, w: 0.7071068}
-  m_LocalPosition: {x: 335.168, y: 256.49258, z: 42.251556}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &903301706771201645
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &7738486067455513884
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5154778217202071112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4271301438601432694, guid: d12f1b745a6ee7541ba476036d0c7a8a, type: 3}

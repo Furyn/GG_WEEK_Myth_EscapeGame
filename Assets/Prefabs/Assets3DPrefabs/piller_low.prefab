@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5054975718876738070}
   - component: {fileID: 5256764403755750320}
   - component: {fileID: 1409886802822142541}
+  - component: {fileID: 2997149700063323106}
   m_Layer: 0
   m_Name: piller_low
   m_TagString: Untagged
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &2997149700063323106
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6917340497673154415}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6054860772802469316, guid: 0ea562ba5a81ad7498cadd4f45450756, type: 3}
