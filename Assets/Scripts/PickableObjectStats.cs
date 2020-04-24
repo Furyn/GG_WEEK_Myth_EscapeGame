@@ -9,7 +9,14 @@ public class PickableObjectStats : MonoBehaviour
     public float Weight = 4;
 
     [HideInInspector]
+    public Vector3 originalSize;
+    [HideInInspector]
     public bool inInventory = false;
     [HideInInspector]
     public bool putOnTable = false;
+
+    private void Awake()
+    {
+        originalSize = GetComponent<Transform>().localScale;
+    }
 }

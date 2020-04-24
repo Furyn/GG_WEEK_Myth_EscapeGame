@@ -11,7 +11,9 @@ GameObject:
   - component: {fileID: 7879841990772237598}
   - component: {fileID: 1153436306045443880}
   - component: {fileID: 4845131435652899793}
-  - component: {fileID: 7883718732789835710}
+  - component: {fileID: 263070387}
+  - component: {fileID: 263070384}
+  - component: {fileID: 263070383}
   m_Layer: 0
   m_Name: sacDeRiz
   m_TagString: Untagged
@@ -80,8 +82,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &7883718732789835710
-MeshCollider:
+--- !u!54 &263070387
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6557675718706812685}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &263070384
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -90,7 +108,21 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6784087226376996505, guid: 9005be90ed3adb94ca01a5fd45667a7f, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.27627987, y: 0.1724773, z: 0.4488032}
+  m_Center: {x: 0.00034092367, y: -0.000023100525, z: 0.24473223}
+--- !u!114 &263070383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6557675718706812685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2634bf4850b6a8a4486c14d86fa62c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weight: 4
+  inInventory: 0
+  putOnTable: 0

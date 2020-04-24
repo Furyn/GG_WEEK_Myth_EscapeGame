@@ -160,6 +160,8 @@ public class PlayerInventory : MonoBehaviour
             for (int i = 0; i < inventory.Count; i++)
             {
                 inventory[i].itemGO.transform.position = inventory[i].slotTransform.position;
+                inventory[i].itemGO.transform.rotation = inventory[i].slotTransform.rotation;
+                inventory[i].itemGO.transform.localScale = inventory[i].slotTransform.localScale;
             }
             
             Animate();
@@ -203,6 +205,7 @@ public class PlayerInventory : MonoBehaviour
             currentlyEquipped.GetComponent<Rigidbody>().velocity = (ray.direction * currentlyEquipped.GetComponent<PickableObjectStats>().Weight);
             currentlyEquipped.GetComponent<PickableObjectStats>().inInventory = false;
             currentlyEquipped.GetComponent<Collider>().isTrigger = false;
+            currentlyEquipped.GetComponent<Transform>().localScale = currentlyEquipped.GetComponent<PickableObjectStats>().originalSize;
             inventory.Remove(inventory[0]);
             currentlyEquipped = null;
 
@@ -219,6 +222,7 @@ public class PlayerInventory : MonoBehaviour
     void Highlight(GameObject aimedObject)
     {
         normalMaterial = aimedObject.transform.GetComponent<MeshRenderer>().material;
+        highlightedMaterial.mainTexture = aimedObject.GetComponent<MeshRenderer>().material.mainTexture;
         aimedObject.transform.GetComponent<MeshRenderer>().material = highlightedMaterial;
         highlighted = aimedObject.transform;
     }
