@@ -30,18 +30,19 @@ public class SoundManager : MonoSingleton<SoundManager>
 
     public void ChangeVolumeMusic()
     {
-            musicSource.volume = musicSlider.value;
+            SingeltonMusique.adS.volume = musicSlider.value;
             Debug.Log("Music volume set to " + musicSource.volume);
     }
 
     public void ToggleMusic()
     {
-        if(isMusicOn)
+        if(!isMusicOn)
         {
-            musicSource.volume = 0f;
+            SingeltonMusique.adS.volume = 0f;
         }
         else
         {
+            isMusicOn = !isMusicOn;
             ChangeVolumeMusic();
         }
 
