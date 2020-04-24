@@ -9,7 +9,7 @@ public class SingeltonMusique : MonoBehaviour
 {
     public static SingeltonMusique instance;
 
-    private static AudioSource adS;
+    public static AudioSource adS;
 
     private void Awake()
     {
