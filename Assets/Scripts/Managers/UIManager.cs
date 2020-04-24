@@ -41,5 +41,8 @@ public class UIManager : MonoSingleton<UIManager>
     {
         pauseScreen.SetActive(false);
         settingsScreen.SetActive(false);
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
