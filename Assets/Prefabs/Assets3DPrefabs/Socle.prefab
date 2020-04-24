@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5024779653575119264}
   - component: {fileID: 7511402629399472048}
   m_Layer: 0
-  m_Name: Cylinder001
+  m_Name: Socle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
