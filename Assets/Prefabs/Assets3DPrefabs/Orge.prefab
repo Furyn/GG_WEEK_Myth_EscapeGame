@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 8376908557237546188}
   - component: {fileID: 656337300495390458}
   - component: {fileID: 6496246918729312771}
-  - component: {fileID: 6882327693397393752}
-  - component: {fileID: 6567623082570072816}
+  - component: {fileID: 4906476623157566808}
+  - component: {fileID: 5796886888964167775}
   m_Layer: 0
   m_Name: Orge
   m_TagString: Untagged
@@ -81,7 +81,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &6882327693397393752
+--- !u!64 &4906476623157566808
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4763568344974761695}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -2128599272216676504, guid: 88c7898d700c600438bceac11df66505, type: 3}
+--- !u!54 &5796886888964167775
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,17 +111,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &6567623082570072816
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4763568344974761695}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -2128599272216676504, guid: 88c7898d700c600438bceac11df66505, type: 3}
