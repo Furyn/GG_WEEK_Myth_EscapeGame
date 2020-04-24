@@ -248,7 +248,7 @@ public class PlayerInventory : MonoBehaviour
             }
     }
 
-    void Shrink(GameObject objectToShrink)
+    public void Shrink(GameObject objectToShrink)
     {
 
         objectToShrink.transform.localScale = new Vector3(objectToShrink.GetComponent<PickableObjectStats>().originalSize.x * objectToShrink.GetComponent<PickableObjectStats>().shrinkingMult,
