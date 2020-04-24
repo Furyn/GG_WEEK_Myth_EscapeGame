@@ -26,6 +26,7 @@ public class ChangeSceneEndVideo : MonoBehaviour
         if ( (!videoPlayer.isPlaying && isStarting) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
         {
             op.allowSceneActivation = true;
+            SingeltonMusique.instance.PlayMusique();
         }
     }
 }
