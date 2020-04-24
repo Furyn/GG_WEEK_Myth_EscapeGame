@@ -13,6 +13,8 @@ public class ChangeSceneEndVideo : MonoBehaviour
     {
         op = SceneManager.LoadSceneAsync(nameOhTheSceneToLoad);
         op.allowSceneActivation = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
