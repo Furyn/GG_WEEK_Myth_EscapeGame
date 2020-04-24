@@ -1100,7 +1100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3772689592718739089}
   - component: {fileID: 3772689592718739088}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: New Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1361,6 +1361,7 @@ MonoBehaviour:
   maxWithJump: 10
   smoothDescentJump: 2
   playerAnimator: {fileID: 1687948106}
+  profileBlurVolume: {fileID: 3046128665870013629}
   isCrouch: 0
 --- !u!114 &1856454629
 MonoBehaviour:
