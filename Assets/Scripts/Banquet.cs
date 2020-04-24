@@ -77,6 +77,8 @@ public class Banquet : MonoBehaviour
 
         selectedObject.GetComponent<PickableObjectStats>().putOnTable = true;
         selectedObject.GetComponent<Rigidbody>().isKinematic = true;
+        player.GetComponent<PlayerInventory>().Shrink(selectedObject);
+
         }           
     }
 
@@ -92,6 +94,7 @@ public class Banquet : MonoBehaviour
                 gameObjectsOnTable[i].GetComponent<Rigidbody>().isKinematic = false;
                 gameObjectsOnTable[i].GetComponent<Rigidbody>().velocity = new Vector3(0, 2, Vector3.back.z * 4);
                 highlightedObject.GetComponent<PickableObjectStats>().putOnTable = false;
+                gameObjectsOnTable[i].GetComponent<Transform>().localScale = gameObjectsOnTable[i].GetComponent<PickableObjectStats>().originalSize;
                 gameObjectsOnTable[i] = null;
             }
         }
