@@ -942,6 +942,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 49532128, guid: ff1999d6291735f4cafa6652812eab7a, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000,
+        type: 0}
     - target: {fileID: 49532129, guid: ff1999d6291735f4cafa6652812eab7a, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0

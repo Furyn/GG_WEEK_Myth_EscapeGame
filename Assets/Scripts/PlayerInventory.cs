@@ -282,7 +282,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void Animate()
     {
-        if (inventory.Count > 1)
+        if (inventory.Count > 0)
         {
             playerInventory.GetComponent<Animator>().Play("Floating items");
         }
