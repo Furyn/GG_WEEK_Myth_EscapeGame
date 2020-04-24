@@ -512,7 +512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   videoPlayer: {fileID: 1044991102}
-  nameOhTheSceneToLoad: Truc
+  nameOhTheSceneToLoad: MainScene
 --- !u!82 &1044991105
 AudioSource:
   m_ObjectHideFlags: 0
