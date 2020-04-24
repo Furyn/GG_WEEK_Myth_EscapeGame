@@ -975,8 +975,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: '3D Artists:
 
-    Maxime Joly - Marie Colette - Noa Yahia-Vilocy - Yohan
-    Desresme'
+    Maxime Joly - Marie Colette - Yohan Desresme'
 --- !u!222 &1902816692
 CanvasRenderer:
   m_ObjectHideFlags: 0
