@@ -1189,7 +1189,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3772689593018884210
 Transform:
   m_ObjectHideFlags: 0
@@ -1342,6 +1342,7 @@ MonoBehaviour:
   highlightedMaterial: {fileID: 2100000, guid: d3eace5d44736bf4f8a86ebd8b4c18ad, type: 2}
   playerHand: {fileID: 3772689592039634781}
   playerInventory: {fileID: 991143495}
+  playerAnimator: {fileID: 1687948106}
 --- !u!114 &3772689593256066018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1359,7 +1360,7 @@ MonoBehaviour:
   maxTimeJump: 2
   maxWithJump: 10
   smoothDescentJump: 2
-  playerAnimator: {fileID: 0}
+  playerAnimator: {fileID: 1687948106}
   isCrouch: 0
 --- !u!114 &1856454629
 MonoBehaviour:
@@ -1422,7 +1423,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3772689593449611373
 Transform:
   m_ObjectHideFlags: 0
@@ -1512,7 +1513,7 @@ GameObject:
   - component: {fileID: 105166481882241546}
   - component: {fileID: 3046128665870013629}
   - component: {fileID: 4949356054168278063}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -1543,8 +1544,8 @@ Camera:
   m_GameObject: {fileID: 3772689594022504967}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.043387335, g: 0.11823356, b: 0.23584908, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1661,7 +1662,7 @@ MonoBehaviour:
   isGlobal: 1
   blendDistance: 0
   weight: 1
-  priority: 0
+  priority: 1
 --- !u!65 &4949356054168278063
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1969,7 +1970,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 8554655104631171556, guid: 36f6b9cd5ec105141b4d818c08bef9b3, type: 3}
+  - {fileID: 2100000, guid: 2b7d315580434874589c8e3eb5cd2a09, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2697,6 +2698,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4820962737023056559}
+  - component: {fileID: 1687948106}
   m_Layer: 0
   m_Name: ArmsGO
   m_TagString: Untagged
@@ -2720,6 +2722,25 @@ Transform:
   m_Father: {fileID: 3772689592497792573}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -21.425001, y: 0, z: 0}
+--- !u!95 &1687948106
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8411837665496893628}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 16b4f1f2333b03b479f88aece7263260, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8412335702138080429
 GameObject:
   m_ObjectHideFlags: 0
