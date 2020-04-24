@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CrouchPlayer))]
@@ -30,6 +31,12 @@ public class MovePlayer : MonoBehaviour
 
     public Animator playerAnimator;
 
+    [SerializeField]
+    private PostProcessVolume profileBlurVolume;
+
+    private MotionBlur blur = null;
+    private DepthOfField depthOfField = null;
+
     [HideInInspector]
     public bool isCrouch = false;
 
@@ -40,6 +47,8 @@ public class MovePlayer : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rP = GetComponent<RotationPlayer>();
         _timerJump = 0.0f;
+        profileBlurVolume.profile.TryGetSettings(out blur);
+        profileBlurVolume.profile.TryGetSettings(out depthOfField);
     }
 
     // Update is called once per frame
@@ -95,6 +104,8 @@ public class MovePlayer : MonoBehaviour
                     rP.screenCheckTouchGround = true;
                 }
                 canJump = true;
+                blur.active = false;
+                depthOfField.active = false;
             }
             else
             {
@@ -115,6 +126,8 @@ public class MovePlayer : MonoBehaviour
                     widthInitJump = transform.position.y;
                     onJump = true;
                     crP.onCrouch = false;
+                    blur.active = true;
+                    depthOfField.active = true;
                 }
                 else
                 {
@@ -127,6 +140,8 @@ public class MovePlayer : MonoBehaviour
                 onJump = true;
                 playerAnimator.SetBool("inAir", true);
                 crP.onCrouch = false;
+                blur.active = true;
+                depthOfField.active = true;
             }
             else if (_timerJump <= 0.0f)
             {
