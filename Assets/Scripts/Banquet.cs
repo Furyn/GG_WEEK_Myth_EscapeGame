@@ -138,6 +138,7 @@ public class Banquet : MonoBehaviour
         else
         {
             Debug.Log("Gagné!");
+            GameManager.Instance.LoadScene("Credits");
         }
     }
 }

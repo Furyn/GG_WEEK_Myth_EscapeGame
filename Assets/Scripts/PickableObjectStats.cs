@@ -15,6 +15,8 @@ public class PickableObjectStats : MonoBehaviour
     [HideInInspector]
     public bool putOnTable = false;
 
+    public float shrinkingMult = 0.8f;
+
     private void Awake()
     {
         originalSize = GetComponent<Transform>().localScale;

@@ -161,9 +161,9 @@ public class PlayerInventory : MonoBehaviour
             {
                 inventory[i].itemGO.transform.position = inventory[i].slotTransform.position;
                 inventory[i].itemGO.transform.rotation = inventory[i].slotTransform.rotation;
-                inventory[i].itemGO.transform.localScale = inventory[i].slotTransform.localScale;
+
             }
-            
+
             Animate();
         }
 
@@ -176,8 +176,11 @@ public class PlayerInventory : MonoBehaviour
 
     public void PickUp(GameObject objToPickUp)
     {
+
         if(inventory.Count < inventoryTransforms.Length)
         {
+
+
             inventory.Add(new InventoryItem(objToPickUp, inventoryTransforms[inventory.Count]));
 
             playerAnimator.SetTrigger("TakeObject");
@@ -185,6 +188,9 @@ public class PlayerInventory : MonoBehaviour
             currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
             currentlyEquipped.GetComponent<PickableObjectStats>().putOnTable = false;
             currentlyEquipped.GetComponent<PickableObjectStats>().inInventory = true;
+
+            Shrink(currentlyEquipped);
+
         }
 
         RearrangeInvPos();
@@ -242,12 +248,34 @@ public class PlayerInventory : MonoBehaviour
             }
     }
 
+    void Shrink(GameObject objectToShrink)
+    {
+
+        objectToShrink.transform.localScale = new Vector3(objectToShrink.GetComponent<PickableObjectStats>().originalSize.x * objectToShrink.GetComponent<PickableObjectStats>().shrinkingMult,
+        objectToShrink.GetComponent<PickableObjectStats>().originalSize.y * objectToShrink.GetComponent<PickableObjectStats>().shrinkingMult,
+        objectToShrink.GetComponent<PickableObjectStats>().originalSize.z * objectToShrink.GetComponent<PickableObjectStats>().shrinkingMult);
+
+        /*for (int i = 0; i < inventory.Count; i++)
+        {
+            Debug.Log(inventory[i].itemGO.transform.lossyScale.x * inventory[i].slotTransform.lossyScale.x);
+
+            //inventory[i].itemGO.transform.localScale = new Vector3(0.85f, 0.85f, 0.85f);
+
+            
+            inventory[i].itemGO.GetComponent<PickableObjectStats>().originalSize.y * inventory[i].slotTransform.localScale.y,
+            inventory[i].itemGO.GetComponent<PickableObjectStats>().originalSize.z * inventory[i].slotTransform.localScale.z);
+        }*/
+    }
+
     void RearrangeInvPos()
     {
         for (int i = 0; i < inventory.Count; i++)
         {
             inventory[i].slotTransform = inventoryTransforms[i];
             inventory[i].itemGO.GetComponent<Collider>().isTrigger = true;
+
+            
+
         }
 
         SetParents();
