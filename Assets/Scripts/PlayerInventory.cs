@@ -22,6 +22,8 @@ public class PlayerInventory : MonoBehaviour
 
     public GameObject playerInventory;
 
+    public Animator playerAnimator;
+
     // Update is called once per frame
     void Update()
     {
@@ -159,8 +161,7 @@ public class PlayerInventory : MonoBehaviour
             {
                 inventory[i].itemGO.transform.position = inventory[i].slotTransform.position;
             }
-
-            SetParents();
+            
             Animate();
         }
 
@@ -177,16 +178,20 @@ public class PlayerInventory : MonoBehaviour
         {
             inventory.Add(new InventoryItem(objToPickUp, inventoryTransforms[inventory.Count]));
 
+            playerAnimator.SetTrigger("TakeObject");
             currentlyEquipped = objToPickUp;
             currentlyEquipped.GetComponent<Rigidbody>().isKinematic = true;
             currentlyEquipped.GetComponent<PickableObjectStats>().putOnTable = false;
             currentlyEquipped.GetComponent<PickableObjectStats>().inInventory = true;
         }
+
+        RearrangeInvPos();
     }
 
     public void Drop()
     {
-        if(inventory.Count > 0)
+
+        if (inventory.Count > 0)
         { 
             currentlyEquipped.transform.SetParent(null);
 
@@ -197,9 +202,11 @@ public class PlayerInventory : MonoBehaviour
 
             currentlyEquipped.GetComponent<Rigidbody>().velocity = (ray.direction * currentlyEquipped.GetComponent<PickableObjectStats>().Weight);
             currentlyEquipped.GetComponent<PickableObjectStats>().inInventory = false;
+            currentlyEquipped.GetComponent<Collider>().isTrigger = false;
             inventory.Remove(inventory[0]);
             currentlyEquipped = null;
 
+            playerAnimator.SetTrigger("ThrowObject");
             StartCoroutine(Wait());
 
             if (inventory.Count > 0)
@@ -236,6 +243,7 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < inventory.Count; i++)
         {
             inventory[i].slotTransform = inventoryTransforms[i];
+            inventory[i].itemGO.GetComponent<Collider>().isTrigger = true;
         }
 
         SetParents();
@@ -251,6 +259,8 @@ public class PlayerInventory : MonoBehaviour
         }
 
         inventory[inventory.Count - 1].itemGO = tempGO;
+
+        playerAnimator.SetTrigger("ChangeObject");
 
         SetParents();
     }

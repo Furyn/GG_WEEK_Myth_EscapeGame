@@ -28,6 +28,8 @@ public class MovePlayer : MonoBehaviour
     private CrouchPlayer crP;
     private RotationPlayer rP;
 
+    public Animator playerAnimator;
+
     [HideInInspector]
     public bool isCrouch = false;
 
@@ -55,10 +57,14 @@ public class MovePlayer : MonoBehaviour
             }
         }
 
+
         if (!GameManager.Instance.isPaused)
         {
             float _xMov = Input.GetAxis("Horizontal");
             float _zMov = Input.GetAxis("Vertical");
+
+            playerAnimator.SetFloat("Movement", _xMov + _zMov);
+            playerAnimator.SetFloat("YMovement", GetComponent<Rigidbody>().velocity.y);
 
             Vector3 _movHorizontal = transform.right * _xMov;
             Vector3 _movVertical = transform.forward * _zMov;
@@ -73,7 +79,12 @@ public class MovePlayer : MonoBehaviour
 
             if (_velocity != Vector3.zero)
             {
+                playerAnimator.SetBool("isMoving", true);
                 rb.MovePosition(rb.position + _velocity * Time.deltaTime);
+            }
+            else
+            {
+                playerAnimator.SetBool("isMoving", false);
             }
 
             RaycastHit _hit;
@@ -92,10 +103,12 @@ public class MovePlayer : MonoBehaviour
 
             if (Input.GetKey(KeyCode.Space) && canJump)
             {
+
                 if (_timerJump < maxTimeJump)
                 {
                     _timerJump += Time.deltaTime;
                     crP.onCrouch = true;
+                    playerAnimator.SetBool("isMoving", false);
                 }
                 else if (canJump)
                 {
@@ -112,15 +125,18 @@ public class MovePlayer : MonoBehaviour
             {
                 widthInitJump = transform.position.y;
                 onJump = true;
+                playerAnimator.SetBool("inAir", true);
                 crP.onCrouch = false;
             }
             else if (_timerJump <= 0.0f)
             {
+                playerAnimator.SetBool("inAir", false);
                 onJump = false;
             }
 
             if (widthInitJump + maxWithJump < transform.position.y && onJump)
             {
+                playerAnimator.SetBool("inAir", false);
                 onJump = false;
             }
 
