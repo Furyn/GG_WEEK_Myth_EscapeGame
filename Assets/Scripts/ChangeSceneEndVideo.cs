@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 using UnityEngine.Video;
 
 public class ChangeSceneEndVideo : MonoBehaviour
@@ -9,6 +7,13 @@ public class ChangeSceneEndVideo : MonoBehaviour
     public VideoPlayer videoPlayer;
     public string nameOhTheSceneToLoad = "TRUC";
     private bool isStarting = false;
+    private AsyncOperation op;
+
+    private void Start()
+    {
+        op = SceneManager.LoadSceneAsync(nameOhTheSceneToLoad);
+        op.allowSceneActivation = false;
+    }
 
     private void Update()
     {
@@ -20,7 +25,7 @@ public class ChangeSceneEndVideo : MonoBehaviour
 
         if ( (!videoPlayer.isPlaying && isStarting) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.SetActiveScene(SceneManager.GetSceneByName(nameOhTheSceneToLoad));
+            op.allowSceneActivation = true;
         }
     }
 }
