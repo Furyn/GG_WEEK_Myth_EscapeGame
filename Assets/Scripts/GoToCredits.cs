@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GoToCredits : MonoBehaviour
 {
-    //[HideInInspector]
+    [HideInInspector]
     public bool goToCredits = false;
 
     public string nameSceneCredits = "Crédits";

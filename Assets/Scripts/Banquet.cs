@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(GoToCredits))]
 public class Banquet : MonoBehaviour
 {
     [Header("Put the items the player has to find")]
@@ -19,6 +20,8 @@ public class Banquet : MonoBehaviour
     [HideInInspector]
     public int itemsOnTable = 0;
 
+    private GoToCredits gtoCredits;
+
     private void Start()
     {
         for(int i = 0; i < gameObjectsNeeded.Count; i++)
@@ -27,6 +30,7 @@ public class Banquet : MonoBehaviour
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
+        gtoCredits = GetComponent<GoToCredits>();
     }
     public void PutItemOn(GameObject selectedObject)
     {
@@ -140,8 +144,8 @@ public class Banquet : MonoBehaviour
 
         else
         {
-            Debug.Log("Gagné!");
-            GameManager.Instance.LoadScene("Credits");
+            gtoCredits.goToCredits = true;
+            
         }
     }
 }
