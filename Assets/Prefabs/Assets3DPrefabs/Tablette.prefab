@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8831883591821578953}
   - component: {fileID: 151798110845739533}
   - component: {fileID: 3846937875171387968}
+  - component: {fileID: -7606441894416186415}
   m_Layer: 0
   m_Name: Tablette
   m_TagString: Untagged
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &-7606441894416186415
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 692670127348044726}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 7743146758546159920, guid: ed0afb51b8ffdaa43aea707864405d73, type: 3}

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2513677703979500561}
   - component: {fileID: 6897656672841088551}
   - component: {fileID: 902390468497654494}
+  - component: {fileID: -3368210036784077190}
   m_Layer: 0
   m_Name: sacDePatateDouce
   m_TagString: Untagged
@@ -79,3 +80,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &-3368210036784077190
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493287789457995266}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6784087226376996505, guid: f501ca2364bb3e44ca49b551f2c0dcac, type: 3}
