@@ -76,7 +76,7 @@ public class Banquet : MonoBehaviour
             }
 
         selectedObject.GetComponent<PickableObjectStats>().putOnTable = true;
-            selectedObject.GetComponent<Rigidbody>().isKinematic = false;
+        selectedObject.GetComponent<Rigidbody>().isKinematic = true;
         }           
     }
 
